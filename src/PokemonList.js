@@ -6,12 +6,13 @@ export const PokemonList = (prop) => {
     return (
         <View style={styles.container}>
             {prop.pokemons.map((pokemon, index) => {
-                console.log(index);
                 return <PokemonCard
                     style={styles.card}
                     name={pokemon.name}
+                    url={pokemon.url}
                     key={index}
                     index={index + 1}
+                    open={prop.openPockemonCard}
                 />
             })}
         </View>

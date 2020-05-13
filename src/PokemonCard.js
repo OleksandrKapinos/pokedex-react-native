@@ -1,27 +1,31 @@
 import React from 'react'
-import {View, StyleSheet, Image, Text} from 'react-native'
+import {View, StyleSheet, Image, Text, TouchableOpacity} from 'react-native'
 
-export const PokemonCard = ({name, index}) => {
+export const PokemonCard = ({name, url, index, open}) => {
     const imgUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
 
     return (
-        <View style={styles.container}>
+        <TouchableOpacity
+            onPress={() => open(url, index)
+            }
+        >
+        <View style={styles.container}
+
+        >
             <View style={styles.box}>
 
                 <Image
                     style={styles.image}
                     source={{
-
                         uri: (index < 10) ? `${imgUrl}/00${index}.png` :
                             (index < 100) ? `${imgUrl}/0${index}.png` :
                                             `${imgUrl}/${index}.png`
-
-
                     }}
                 />
                 <Text style={styles.text}>{name}</Text>
             </View>
         </View>
+        </TouchableOpacity>
     )
 };
 
