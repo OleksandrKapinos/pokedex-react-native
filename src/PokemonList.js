@@ -1,12 +1,13 @@
 import React from 'react'
 import { View, StyleSheet } from 'react-native'
-import {PokemonCard} from './PokemonCard'
+import { PokemonCard } from './PokemonCard'
 
 export const PokemonList = (prop) => {
     return (
         <View style={styles.container}>
             {prop.pokemons.map((pokemon, index) => {
-                return <PokemonCard
+                return (
+                <PokemonCard
                     style={styles.card}
                     name={pokemon.name}
                     url={pokemon.url}
@@ -14,6 +15,7 @@ export const PokemonList = (prop) => {
                     index={index + 1}
                     open={prop.openPockemonCard}
                 />
+                )
             })}
         </View>
     )

@@ -5,15 +5,9 @@ export const PokemonCard = ({name, url, index, open}) => {
     const imgUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
 
     return (
-        <TouchableOpacity
-            onPress={() => open(url, index)
-            }
-        >
-        <View style={styles.container}
-
-        >
+        <TouchableOpacity onPress={() => open(url, index)}>
+        <View style={styles.container}>
             <View style={styles.box}>
-
                 <Image
                     style={styles.image}
                     source={{

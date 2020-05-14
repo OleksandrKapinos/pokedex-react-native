@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react'
-import {View, StyleSheet, Text, Image, Button} from 'react-native'
+import {View, StyleSheet, Text, Image, Button, ActivityIndicator} from 'react-native'
 
 export const PokemonModalCard = ({url, index, close}) => {
     const [pokemon, setPokemon] = useState({
         id: 1,
-        name: '',
+        name: '            ',
         types: [],
         stats: [],
         weight: ''
     });
+    const [loading, setLoading] = useState(true);
     const imgUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
+
 
 
     useEffect(() => {
@@ -26,8 +28,9 @@ export const PokemonModalCard = ({url, index, close}) => {
                     stats,
                     weight,
                 });
+                setLoading(false)
             })
-    });
+    },[pokemon.id]);
 
     return (
         <View style={styles.container}>
@@ -41,17 +44,19 @@ export const PokemonModalCard = ({url, index, close}) => {
                                 `${imgUrl}/${index}.png`
                     }}
                 />
+                {loading && <ActivityIndicator size="large" color="#2196F3"/>}
                 <View style={styles.types}>
                     {pokemon.types.map((type, index) => {
                         return <Text style={styles.type} key={index}>{type.type.name}</Text>
                     })}
                 </View>
-                    {pokemon.stats.map((stat, index) => {
+                {
+                    pokemon.stats.map((stat, index) => {
                         return <Text key={index}
-                                     style={styles.text}
+
                         >{stat.stat.name} - {stat.base_stat}</Text>
-                    })}
-                <Text style={styles.text}>weight - {pokemon.weight}</Text>
+                    })
+                }                <Text style={styles.text}>weight - {pokemon.weight}</Text>
                 <Button title={'Close'}
                         onPress={() => close()}
                         color={'#F44336'}
@@ -65,7 +70,8 @@ export const PokemonModalCard = ({url, index, close}) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#000000aa'
+        backgroundColor: '#000000aa',
+
     },
     box: {
         backgroundColor: '#fff',
@@ -111,5 +117,5 @@ const styles = StyleSheet.create({
         margin: 5,
         padding: 5,
         textTransform: 'uppercase',
-    }
+    },
 });
