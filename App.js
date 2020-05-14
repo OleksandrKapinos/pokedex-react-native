@@ -15,10 +15,9 @@ export default function App() {
         fetch(`${urlPokemon}?limit=${pokemonQuantity}`)
             .then(response => response.json())
             .then(list => {
-                console.log('log from useEffect');
                 setPokemons(list.results);
             })
-    }, [currentPokemon]);
+    }, [pokemonQuantity]);
 
     const addPokemon = (size) => {
         setpokemonQuantity(size + 12);

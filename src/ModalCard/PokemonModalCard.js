@@ -18,7 +18,7 @@ export const PokemonModalCard = ({url, index, close}) => {
         fetch(`${url}`)
             .then(response => response.json())
             .then(data => {
-                const {name, id, types, stats, weight, ...rest} = data;
+                const {name, id, types, stats, ...rest} = data;
                 stats.reverse();
                 const pokemonName = name[0].toUpperCase() + name.slice(1);
                 setPokemon({
@@ -26,7 +26,6 @@ export const PokemonModalCard = ({url, index, close}) => {
                     name: pokemonName,
                     types,
                     stats,
-                    weight,
                 });
                 setLoading(false)
             })
@@ -53,10 +52,10 @@ export const PokemonModalCard = ({url, index, close}) => {
                 {
                     pokemon.stats.map((stat, index) => {
                         return <Text key={index}
-
+                                     style={styles.text}
                         >{stat.stat.name} - {stat.base_stat}</Text>
                     })
-                }                <Text style={styles.text}>weight - {pokemon.weight}</Text>
+                }
                 <Button title={'Close'}
                         onPress={() => close()}
                         color={'#F44336'}
@@ -75,15 +74,15 @@ const styles = StyleSheet.create({
     },
     box: {
         backgroundColor: '#fff',
-        margin: 50,
+        margin: 30,
         padding: 10,
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
     },
     image: {
-        width: 150,
-        height: 150,
+        width: 200,
+        height: 200,
     },
     title: {
         backgroundColor: '#2196F3',
