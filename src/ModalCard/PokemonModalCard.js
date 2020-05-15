@@ -34,7 +34,7 @@ export const PokemonModalCard = ({url, index, close}) => {
     return (
         <View style={styles.container}>
             <View style={styles.box}>
-                <Text style={styles.title}>{pokemon.name}</Text>
+                <Text style={styles.title}>{pokemon.name} #{pokemon.id}</Text>
                 <Image
                     style={styles.image}
                     source={{
