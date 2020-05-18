@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {View, StyleSheet, Text, Image, Button, ActivityIndicator} from 'react-native'
+import {View, StyleSheet, Text, Button} from 'react-native'
+import {PokemonDecription} from './PokemonDescription'
+import {Loader} from '../GlobalComponents/Loader'
+import {PokemonImage} from '../GlobalComponents/PokemonImage'
 
 export const PokemonModalCard = ({url, index, close}) => {
     const [pokemon, setPokemon] = useState({
@@ -10,8 +13,6 @@ export const PokemonModalCard = ({url, index, close}) => {
         weight: ''
     });
     const [loading, setLoading] = useState(true);
-    const imgUrl = 'https://assets.pokemon.com/assets/cms2/img/pokedex/full';
-
 
 
     useEffect(() => {
@@ -35,27 +36,9 @@ export const PokemonModalCard = ({url, index, close}) => {
         <View style={styles.container}>
             <View style={styles.box}>
                 <Text style={styles.title}>{pokemon.name} #{pokemon.id}</Text>
-                <Image
-                    style={styles.image}
-                    source={{
-                        uri: (index < 10) ? `${imgUrl}/00${index}.png` :
-                            (index < 100) ? `${imgUrl}/0${index}.png` :
-                                `${imgUrl}/${index}.png`
-                    }}
-                />
-                {loading && <ActivityIndicator size="large" color="#2196F3"/>}
-                <View style={styles.types}>
-                    {pokemon.types.map((type, index) => {
-                        return <Text style={styles.type} key={index}>{type.type.name}</Text>
-                    })}
-                </View>
-                {
-                    pokemon.stats.map((stat, index) => {
-                        return <Text key={index}
-                                     style={styles.text}
-                        >{stat.stat.name} - {stat.base_stat}</Text>
-                    })
-                }
+                <PokemonImage index={index} size={200}/>
+                {loading && <Loader/>}
+                <PokemonDecription types={pokemon.types} stats={pokemon.stats}/>
                 <Button title={'Close'}
                         onPress={() => close()}
                         color={'#F44336'}
@@ -91,30 +74,5 @@ const styles = StyleSheet.create({
         fontSize: 25,
         marginBottom: 15,
         padding: 5
-    },
-    text: {
-        backgroundColor: '#2196F3',
-        borderRadius: 10,
-        color: '#fff',
-        fontSize: 16,
-        margin: 5,
-        padding: 5,
-        textTransform: 'uppercase',
-        width: '100%'
-    },
-    types: {
-        margin: 5,
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center'
-    },
-    type: {
-        backgroundColor: '#303F9F',
-        borderRadius: 10,
-        color: '#fff',
-        fontSize: 16,
-        margin: 5,
-        padding: 5,
-        textTransform: 'uppercase',
     },
 });
