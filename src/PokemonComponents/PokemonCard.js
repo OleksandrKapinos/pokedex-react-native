@@ -2,10 +2,10 @@ import React from 'react'
 import {View, StyleSheet, Text, TouchableOpacity} from 'react-native'
 import {PokemonImage} from "../GlobalComponents/PokemonImage";
 
-export const PokemonCard = ({name, url, index, open}) => {
+export const PokemonCard = ({name, index, showPokemonCard}) => {
 
     return (
-        <TouchableOpacity onPress={() => open(url, index)}>
+        <TouchableOpacity onPress={() => showPokemonCard(index)}>
         <View style={styles.container}>
             <View style={styles.box}>
                 <PokemonImage index={index} size={150}/>

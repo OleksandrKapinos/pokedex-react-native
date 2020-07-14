@@ -3,21 +3,20 @@ import {View, StyleSheet, Text, Button} from 'react-native'
 import {PokemonDecription} from './PokemonDescription'
 import {Loader} from '../GlobalComponents/Loader'
 import {PokemonImage} from '../GlobalComponents/PokemonImage'
+import { pokemonAPI } from '../api/api'
 
-export const PokemonModalCard = ({url, index, close}) => {
+export const PokemonModalCard = ({index, close}) => {
     const [pokemon, setPokemon] = useState({
-        id: 1,
-        name: '            ',
+        id: '',
+        name: '',
         types: [],
         stats: [],
-        weight: ''
     });
     const [loading, setLoading] = useState(true);
 
 
     useEffect(() => {
-        fetch(`${url}`)
-            .then(response => response.json())
+       pokemonAPI.getCurrentPokemon(index)
             .then(data => {
                 const {name, id, types, stats, ...rest} = data;
                 stats.reverse();
@@ -34,16 +33,22 @@ export const PokemonModalCard = ({url, index, close}) => {
 
     return (
         <View style={styles.container}>
-            <View style={styles.box}>
-                <Text style={styles.title}>{pokemon.name} #{pokemon.id}</Text>
-                <PokemonImage index={index} size={200}/>
-                {loading && <Loader/>}
-                <PokemonDecription types={pokemon.types} stats={pokemon.stats}/>
-                <Button title={'Close'}
-                        onPress={() => close()}
-                        color={'#F44336'}
-                />
-            </View>
+            {loading
+            ? <View style={styles.box}>
+                    <PokemonImage index={index} size={200}/>
+                    <Loader/>
+                </View>
+            :<View style={styles.box}>
+                    <Text style={styles.title}>{pokemon.name} #{pokemon.id}</Text>
+                    <PokemonImage index={index} size={200}/>
+                    <PokemonDecription types={pokemon.types} stats={pokemon.stats}/>
+                    <Button title={'Close'}
+                            onPress={() => close()}
+                            color={'#F44336'}
+                    />
+                </View>
+            }
+
         </View>
     )
 };

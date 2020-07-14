@@ -2,10 +2,10 @@ import React from 'react'
 import { View, StyleSheet } from 'react-native'
 import { PokemonCard } from './PokemonCard'
 
-export const PokemonList = (prop) => {
+export const PokemonList = (props) => {
     return (
         <View style={styles.container}>
-            {prop.pokemons.map((pokemon, index) => {
+            {props.pokemons.map((pokemon, index) => {
                 return (
                 <PokemonCard
                     style={styles.card}
@@ -13,7 +13,7 @@ export const PokemonList = (prop) => {
                     url={pokemon.url}
                     key={index}
                     index={index + 1}
-                    open={prop.openPockemonCard}
+                    showPokemonCard={props.showPokemonCard}
                 />
                 )
             })}
